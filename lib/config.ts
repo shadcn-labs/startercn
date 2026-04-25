@@ -1,21 +1,25 @@
+import { LINK } from "@/constants/links";
+import { ROUTES } from "@/constants/routes";
+import { META_THEME_COLORS, SITE } from "@/constants/site";
+
 export const siteConfig = {
-  name: "shadcn/registry-kit",
-  url: "https://shadcn-registry-kit.vercel.app",
-  ogImage: "https://shadcn-registry-kit.vercel.app/og.jpg",
-  description:
-    "A starter kit for building and publishing your own shadcn registry components.",
+  description: SITE.DESCRIPTION.LONG,
   links: {
-    github: "https://github.com/mehmetpekcan/shadcn-registry-kit",
+    github: LINK.GITHUB,
   },
+  name: SITE.NAME,
   navItems: [
     {
+      href: ROUTES.DOCS,
       label: "Docs",
-      href: "/docs",
+    },
+    {
+      href: ROUTES.DOCS_EXAMPLES,
+      label: "Examples",
     },
   ],
-}
+  ogImage: SITE.OG_IMAGE,
+  url: SITE.URL,
+};
 
-export const META_THEME_COLORS = {
-  light: "#ffffff",
-  dark: "#09090b",
-}
+export { META_THEME_COLORS };

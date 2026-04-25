@@ -14,6 +14,7 @@ A template for building and publishing your own custom shadcn registry component
 1. **Use this template** - Click "Use this template" on GitHub
 
 2. **Install dependencies**:
+
 ```bash
 pnpm install
 ```
@@ -23,11 +24,13 @@ pnpm install
 4. **Update `registry.json`** with your component details
 
 5. **Build the registry**:
+
 ```bash
 pnpm registry:build
 ```
 
 6. **Start development**:
+
 ```bash
 pnpm dev
 ```

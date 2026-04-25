@@ -1,48 +1,59 @@
-import { PackageIcon } from "lucide-react"
-import Link from "next/link"
+import Link from "next/link";
 
-import { CommandMenu } from "@/components/command-menu"
-import { GitHubLink } from "@/components/github-link"
-import { MainNav } from "@/components/main-nav"
-import { MobileNav } from "@/components/mobile-nav"
-import { ModeSwitcher } from "@/components/mode-switcher"
-import { Button } from "@/components/ui/button"
-import { siteConfig } from "@/lib/config"
-import { source } from "@/lib/source"
+import { BrandContextMenu } from "@/components/brand-context-menu";
+import { CommandMenu } from "@/components/command-menu";
+import { LogoMark } from "@/components/logo";
+import { MainNav } from "@/components/main-nav";
+import { MobileNav } from "@/components/mobile-nav";
+import { ModeSwitcher } from "@/components/mode-switcher";
+import { NavItemGithub } from "@/components/nav-item-github";
+import { SponsorLink } from "@/components/sponsor-link";
+import { Button } from "@/components/ui/button";
+import { ROUTES } from "@/constants/routes";
+import { SITE } from "@/constants/site";
+import { source } from "@/lib/source";
 
-export function SiteHeader() {
-  const pageTree = source.pageTree
+const navItems = [
+  { href: ROUTES.DOCS, label: "Docs" },
+  { href: ROUTES.DOCS_EXAMPLES, label: "Components" },
+];
 
-  return (
-    <header className="bg-background sticky top-0 z-50 w-full">
-      <div className="container-wrapper 3xl:fixed:px-0 px-6">
-        <div className="3xl:fixed:container flex h-(--header-height) items-center gap-2">
-          <MobileNav
-            tree={pageTree}
-            items={siteConfig.navItems}
-            className="flex lg:hidden"
-          />
+export const SiteHeader = () => (
+  <header
+    className="bg-background sticky top-0 z-50 w-full"
+    style={{ viewTransitionName: "site-header" }}
+  >
+    <div className="container-wrapper 3xl:fixed:px-0 px-6">
+      <div className="3xl:fixed:container flex h-(--header-height) items-center gap-2">
+        <MobileNav
+          items={navItems}
+          tree={source.pageTree}
+          className="flex lg:hidden"
+        />
+        <BrandContextMenu>
           <Button
             asChild
             variant="ghost"
             size="icon"
             className="hidden size-8 lg:flex"
+            sound="click"
           >
-            <Link href="/">
-              <PackageIcon className="size-5" />
-              <span className="sr-only">{siteConfig.name}</span>
+            <Link href="/" transitionTypes={["nav-back"]}>
+              <LogoMark className="size-5" />
+              <span className="sr-only">{SITE.NAME}</span>
             </Link>
           </Button>
-          <MainNav items={siteConfig.navItems} className="hidden lg:flex" />
-          <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-            <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-              <CommandMenu tree={pageTree} navItems={siteConfig.navItems} />
-            </div>
-            <GitHubLink />
-            <ModeSwitcher />
+        </BrandContextMenu>
+        <MainNav items={navItems} className="hidden lg:flex" />
+        <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
+          <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
+            <CommandMenu navItems={navItems} tree={source.pageTree} />
           </div>
+          <NavItemGithub />
+          <SponsorLink />
+          <ModeSwitcher />
         </div>
       </div>
-    </header>
-  )
-}
+    </div>
+  </header>
+);

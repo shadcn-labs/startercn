@@ -1,78 +1,45 @@
-import { ArrowRightIcon } from "lucide-react"
-import { Metadata } from "next"
-import Link from "next/link"
+import { CommandBox } from "@/components/command-box";
+import { HomeCtas } from "@/components/home-ctas";
+import { PageTransition } from "@/components/page-transition";
+import { YourComponent } from "@/registry/new-york/your-component";
+import { BreadcrumbJsonLd } from "@/seo/json-ld";
 
-import { Button } from "@/components/ui/button"
-import { siteConfig } from "@/lib/config"
-
-import { CommandBox } from "@/components/command-box"
-
-const title = "Shadcn Registry Kit"
+const title = "Shadcn Registry Starter";
 const description =
-  "A starter kit for building and publishing your own shadcn registry components. Fork, customize, and deploy."
+  "A starter kit for building and publishing your own shadcn registry components. Fork, customize, and deploy.";
 
-const installCommand = `npx shadcn@latest add ${siteConfig.url}/r/your-component.json`
-
-export const dynamic = "force-static"
-export const revalidate = false
-
-export const metadata: Metadata = {
-  title,
-  description,
-  openGraph: {
-    images: [
-      {
-        url: `/og?title=${encodeURIComponent(
-          title
-        )}&description=${encodeURIComponent(description)}`,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    images: [
-      {
-        url: `/og?title=${encodeURIComponent(
-          title
-        )}&description=${encodeURIComponent(description)}`,
-      },
-    ],
-  },
-}
+export const dynamic = "force-static";
+export const revalidate = false;
 
 export default function IndexPage() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="container-wrapper relative">
-        <div className="container flex flex-col items-center gap-8 py-20 text-center md:py-28 lg:py-36">
-          <h1 className="max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            {title}
-          </h1>
+    <>
+      <BreadcrumbJsonLd items={[{ name: "Home", path: "/" }]} />
+      <PageTransition>
+        <section className="relative overflow-hidden">
+          <div className="container-wrapper relative">
+            <div className="container flex flex-col items-center gap-4 py-16 text-center md:py-20 lg:py-24">
+              <h1 className="max-w-7xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl/tight from-foreground via-foreground to-foreground/65 bg-linear-to-b bg-clip-text text-transparent">
+                {title}
+              </h1>
 
-          <p className="max-w-2xl text-lg text-zinc-400 sm:text-xl">
-            {description}
-          </p>
+              <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">
+                {description}
+              </p>
 
-          <CommandBox command={installCommand} />
+              <CommandBox className="mt-4 w-full max-w-xl" />
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-            <Button asChild size="lg">
-              <Link href="/docs/installation">
-                Get Started
-                <ArrowRightIcon className="ml-2 size-4" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/docs/examples/basic">View Examples</Link>
-            </Button>
+              <HomeCtas className="mt-4" />
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <div className="flex flex-col items-center gap-6">
-        <YourComponent className="w-full max-w-md" />
-      </div>
-    </section>
-  )
+        <section className="container-wrapper pb-8 lg:pb-12">
+          <div className="container flex flex-col items-center gap-6">
+            <YourComponent className="w-full max-w-md" />
+          </div>
+        </section>
+      </PageTransition>
+    </>
+  );
 }
-import { YourComponent } from "@/registry/new-york/your-component"

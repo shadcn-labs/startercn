@@ -1,45 +1,23 @@
-export interface NavItem {
-  title: string
-  href?: string
-  disabled?: boolean
-  external?: boolean
-  label?: string
-}
+import { ROUTES } from "@/constants/routes";
 
-export interface NavItemWithChildren extends NavItem {
-  items: NavItemWithChildren[]
-}
+import type { PageTreeFolder } from "./page-tree";
+import { formatLabelFromSlug } from "./utils";
 
-export interface DocsConfig {
-  sidebarNav: NavItemWithChildren[]
-}
+export const DOCS_DIR = `content${ROUTES.DOCS}`;
 
-export const docsConfig: DocsConfig = {
-  sidebarNav: [
-    {
-      title: "Getting Started",
-      items: [
-        {
-          title: "Introduction",
-          href: "/docs",
-          items: [],
-        },
-        {
-          title: "Installation",
-          href: "/docs/installation",
-          items: [],
-        },
-      ],
-    },
-    {
-      title: "Examples",
-      items: [
-        {
-          title: "Basic Usage",
-          href: "/docs/examples/basic",
-          items: [],
-        },
-      ],
-    },
-  ],
-}
+export const EXCLUDED_SECTIONS = new Set(["installation", "(root)"]);
+
+export const isComponentsFolder = (folder: PageTreeFolder) =>
+  folder.$id === "components" || folder.name === "Components";
+
+const TITLE_OVERRIDES: Record<string, string> = {
+  json: "JSON",
+  "qr-code": "QR Code",
+};
+
+export const formatTitleFromSlug = (slug: string): string =>
+  TITLE_OVERRIDES[slug] ?? formatLabelFromSlug(slug);
+
+export const homeContentRoute = `${ROUTES.LLMS_MDX}/content.md`;
+export const docsContentRoute = `${ROUTES.LLMS_MDX}${ROUTES.DOCS}`;
+export const docsImageRoute = `${ROUTES.OG}${ROUTES.DOCS}`;

@@ -1,108 +1,29 @@
-import type { Metadata } from "next"
+import type { Metadata } from "next";
 
-import { ActiveThemeProvider } from "@/components/active-theme"
-import { Analytics } from "@/components/analytics"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/sonner"
-import { META_THEME_COLORS, siteConfig } from "@/lib/config"
-import { fontVariables } from "@/lib/fonts"
-import { cn } from "@/lib/utils"
+import { ActiveThemeProvider } from "@/components/active-theme";
+import { Analytics } from "@/components/analytics";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { META_THEME_COLORS } from "@/constants/site";
+import { fontVariables } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { JsonLdScripts } from "@/seo/json-ld";
+import { baseMetadata } from "@/seo/metadata";
 
-import "@/styles/globals.css"
+import "@/styles/globals.css";
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  metadataBase: new URL(siteConfig.url),
-  description: siteConfig.description,
-  keywords: [
-    "shadcn",
-    "shadcn registry",
-    "shadcn components",
-    "shadcn template",
-    "react components",
-    "component library",
-    "tailwind components",
-    "ui components",
-    "nextjs components",
-    "custom registry",
-    "component registry",
-    "npx shadcn add",
-  ],
-  category: "technology",
-  classification: "Developer Tools",
-  authors: [
-    {
-      name: "mehmetpekcan",
-      url: "https://github.com/mehmetpekcan/shadcn-registry-kit",
-    },
-  ],
-  creator: "mehmetpekcan",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: `${siteConfig.url}/opengraph-image.png`,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [`${siteConfig.url}/opengraph-image.png`],
-    creator: "@mehmetpekcan",
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-  manifest: `${siteConfig.url}/site.webmanifest`,
-}
+export const metadata: Metadata = baseMetadata;
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareSourceCode",
-              name: siteConfig.name,
-              description: siteConfig.description,
-              url: siteConfig.url,
-              codeRepository: siteConfig.links.github,
-              programmingLanguage: ["TypeScript", "React", "Next.js"],
-              runtimePlatform: "Node.js",
-              applicationCategory: "DeveloperApplication",
-              operatingSystem: "Cross-platform",
-              author: {
-                "@type": "Person",
-                name: "mehmetpekcan",
-                url: "https://github.com/mehmetpekcan",
-              },
-              license: "https://opensource.org/licenses/MIT",
-            }),
-          }}
-        />
+        <JsonLdScripts />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -133,5 +54,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

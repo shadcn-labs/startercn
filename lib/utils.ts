@@ -1,10 +1,15 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx } from "clsx";
+import type { ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+import { SITE } from "@/constants/site";
 
-export function absoluteUrl(path: string) {
-  return `https://shadcn-registry-kit.vercel.app${path}`
-}
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
+
+export const absoluteUrl = (path: string) => `${SITE.URL}${path}`;
+
+export const formatLabelFromSlug = (slug: string) =>
+  slug
+    .split("-")
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(" ");

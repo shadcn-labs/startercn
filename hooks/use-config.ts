@@ -1,18 +1,14 @@
-import { useAtom } from "jotai"
-import { atomWithStorage } from "jotai/utils"
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
-type Config = {
-  style: "new-york-v4"
-  packageManager: "npm" | "yarn" | "pnpm" | "bun"
-  installationType: "cli" | "manual"
+export type InstallationType = "cli" | "manual";
+
+export interface Config {
+  installationType: InstallationType;
 }
 
 const configAtom = atomWithStorage<Config>("config", {
-  style: "new-york-v4",
-  packageManager: "pnpm",
   installationType: "cli",
-})
+});
 
-export function useConfig() {
-  return useAtom(configAtom)
-}
+export const useConfig = () => useAtom(configAtom);

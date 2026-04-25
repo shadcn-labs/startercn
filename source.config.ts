@@ -1,16 +1,20 @@
-import { defineConfig, defineDocs } from "fumadocs-mdx/config"
-import rehypePrettyCode from "rehype-pretty-code"
+import {
+  defineConfig,
+  defineDocs,
+  frontmatterSchema,
+  metaSchema,
+} from "fumadocs-mdx/config";
+import { rehypePrettyCode } from "rehype-pretty-code";
 
-import { transformers } from "@/lib/highlight-code"
+import { DOCS_DIR } from "@/lib/docs";
+import { transformers } from "@/lib/highlight-code";
 
 export default defineConfig({
   mdxOptions: {
     rehypePlugins: (plugins) => {
-      plugins.shift()
+      plugins.shift();
       plugins.push([
-        // TODO: fix the type.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        rehypePrettyCode as any,
+        rehypePrettyCode,
         {
           theme: {
             dark: "github-dark",
@@ -18,13 +22,22 @@ export default defineConfig({
           },
           transformers,
         },
-      ])
+      ]);
 
-      return plugins
+      return plugins;
     },
   },
-})
+});
 
 export const docs = defineDocs({
-  dir: "content/docs",
-})
+  dir: DOCS_DIR,
+  docs: {
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
+    schema: frontmatterSchema,
+  },
+  meta: {
+    schema: metaSchema,
+  },
+});
