@@ -16,7 +16,7 @@ ${SITE.DESCRIPTION.LONG}
 ## Quick links
 
 - [Get started](${base}${ROUTES.DOCS_INSTALLATION})
-- [Browse examples](${base}${ROUTES.DOCS_EXAMPLES})
+- [Browse components](${base}${ROUTES.DOCS_COMPONENTS})
 - [Documentation](${base}${ROUTES.DOCS})
 - [LLM index (llms.txt)](${base}${ROUTES.LLMS})
 - [API catalog](${base}/.well-known/api-catalog)

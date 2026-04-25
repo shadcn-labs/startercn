@@ -15,24 +15,20 @@ import {
 } from "@/components/ui/sidebar";
 import { ROUTES } from "@/constants/routes";
 import { EXCLUDED_SECTIONS, isComponentsFolder } from "@/lib/docs";
-import {
-  getCategoryFoldersForBase,
-  getCurrentBase,
-  getPagesFromFolder,
-} from "@/lib/page-tree";
+import { getAllPagesFromFolder, getPagesFromFolder } from "@/lib/page-tree";
 import type { source } from "@/lib/source";
 
 const TOP_LEVEL_SECTIONS = [
   { href: ROUTES.DOCS, name: "Introduction" },
   { href: ROUTES.DOCS_INSTALLATION, name: "Installation" },
-  { href: ROUTES.DOCS_EXAMPLES, name: "Examples" },
+  { href: ROUTES.DOCS_COMPONENTS, name: "Components" },
   { href: ROUTES.LLMS, name: "llms.txt" },
 ];
 
 const MENU_BUTTON_CLS =
   "relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md data-[active=true]:border-accent data-[active=true]:bg-accent 3xl:fixed:w-full 3xl:fixed:max-w-48";
 
-function SidebarPageGroup({
+const SidebarPageGroup = ({
   label,
   pages,
   pathname,
@@ -40,7 +36,7 @@ function SidebarPageGroup({
   label: React.ReactNode;
   pages: { url: string; name: React.ReactNode }[];
   pathname: string;
-}) {
+}) => {
   if (pages.length === 0) {
     return null;
   }
@@ -70,14 +66,13 @@ function SidebarPageGroup({
       </SidebarGroupContent>
     </SidebarGroup>
   );
-}
+};
 
-export function DocsSidebar({
+export const DocsSidebar = ({
   tree,
   ...props
-}: React.ComponentProps<typeof Sidebar> & { tree: typeof source.pageTree }) {
+}: React.ComponentProps<typeof Sidebar> & { tree: typeof source.pageTree }) => {
   const pathname = usePathname();
-  const currentBase = getCurrentBase(pathname);
 
   return (
     <Sidebar
@@ -124,24 +119,17 @@ export function DocsSidebar({
             return null;
           }
 
-          if (isComponentsFolder(item)) {
-            return getCategoryFoldersForBase(item, currentBase).map(
-              (category) => (
-                <SidebarPageGroup
-                  key={category.$id}
-                  label={category.name}
-                  pages={getPagesFromFolder(category)}
-                  pathname={pathname}
-                />
+          const pages = isComponentsFolder(item)
+            ? getAllPagesFromFolder(item).filter(
+                (page) => page.url !== ROUTES.DOCS_COMPONENTS
               )
-            );
-          }
+            : getPagesFromFolder(item);
 
           return (
             <SidebarPageGroup
               key={item.$id}
               label={item.name}
-              pages={getPagesFromFolder(item)}
+              pages={pages}
               pathname={pathname}
             />
           );
@@ -150,4 +138,4 @@ export function DocsSidebar({
       </SidebarContent>
     </Sidebar>
   );
-}
+};

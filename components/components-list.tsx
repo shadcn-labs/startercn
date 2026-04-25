@@ -1,8 +1,9 @@
 import Link from "next/link";
 
+import { ROUTES } from "@/constants/routes";
 import { isComponentsFolder } from "@/lib/docs";
 import type { PageTreeFolder, PageTreePage } from "@/lib/page-tree";
-import { getCategoryFoldersForBase, getPagesFromFolder } from "@/lib/page-tree";
+import { getAllPagesFromFolder, getPagesFromFolder } from "@/lib/page-tree";
 import { source } from "@/lib/source";
 
 const getFolder = (name: string): PageTreeFolder | undefined => {
@@ -27,34 +28,10 @@ const ComponentGrid = ({ pages }: { pages: PageTreePage[] }) => (
   </div>
 );
 
-const CategoryGrid = ({ categories }: { categories: PageTreeFolder[] }) => (
-  <div className="flex flex-col gap-10">
-    {categories.map((category) => {
-      const pages = getPagesFromFolder(category);
-      if (pages.length === 0) {
-        return null;
-      }
-
-      return (
-        <div key={category.$id}>
-          <h3 className="mb-4 text-lg font-medium tracking-tight">
-            {category.name}
-          </h3>
-          <ComponentGrid pages={pages} />
-        </div>
-      );
-    })}
-  </div>
-);
-
 export const ComponentsList = ({
-  folderName = "Examples",
-  category,
-  base = "new-york",
+  folderName = "Components",
 }: {
   folderName?: string;
-  category?: string;
-  base?: string;
 }) => {
   const folder = getFolder(folderName);
   if (!folder) {
@@ -69,27 +46,12 @@ export const ComponentsList = ({
     return <ComponentGrid pages={pages} />;
   }
 
-  const categories = getCategoryFoldersForBase(folder, base);
-
-  if (category) {
-    const match = categories.find(
-      (cat) =>
-        cat.$id === category ||
-        String(cat.$id ?? "").endsWith(`/${category}`) ||
-        (typeof cat.name === "string" &&
-          cat.name.toLowerCase() === category.toLowerCase())
-    );
-
-    if (!match) {
-      return null;
-    }
-
-    return <ComponentGrid pages={getPagesFromFolder(match)} />;
-  }
-
-  if (categories.length === 0) {
+  const pages = getAllPagesFromFolder(folder).filter(
+    (page) => page.url !== ROUTES.DOCS_COMPONENTS
+  );
+  if (pages.length === 0) {
     return null;
   }
 
-  return <CategoryGrid categories={categories} />;
+  return <ComponentGrid pages={pages} />;
 };

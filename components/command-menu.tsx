@@ -7,7 +7,7 @@ import {
   CircleDashedIcon,
   SquareDashedIcon,
 } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
+import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useFeedback } from "@/hooks/use-feedback";
@@ -36,11 +37,7 @@ import { useMutationObserver } from "@/hooks/use-mutation-observer";
 import { usePackageManager } from "@/hooks/use-package-manager";
 import { EXCLUDED_SECTIONS, isComponentsFolder } from "@/lib/docs";
 import { trackEvent } from "@/lib/events";
-import {
-  getCategoryFoldersForBase,
-  getCurrentBase,
-  getPagesFromFolder,
-} from "@/lib/page-tree";
+import { getAllPagesFromFolder, getPagesFromFolder } from "@/lib/page-tree";
 import { cn } from "@/lib/utils";
 
 type DocUrlKind =
@@ -168,13 +165,11 @@ export const CommandMenu = ({
   tree: PageTreeRoot;
 }) => {
   const router = useRouter();
-  const pathname = usePathname();
   const isMac = useIsMac();
   const [packageManager] = usePackageManager();
   const [open, setOpen] = useState(false);
   const [showGoToPage, setShowGoToPage] = useState(false);
   const [copyPayload, setCopyPayload] = useState("");
-  const currentBase = getCurrentBase(pathname);
   const copyFeedback = useFeedback({ sound: "copy" });
 
   const { copyToClipboard } = useCopyToClipboard({
@@ -199,38 +194,25 @@ export const CommandMenu = ({
         continue;
       }
 
-      if (isComponentsFolder(item)) {
-        for (const category of getCategoryFoldersForBase(item, currentBase)) {
-          const pages = getPagesFromFolder(category).map((p) => ({
-            name: typeof p.name === "string" ? p.name : String(p.name),
-            url: p.url,
-          }));
-          if (pages.length > 0) {
-            groups.push({
-              label:
-                typeof category.name === "string"
-                  ? category.name
-                  : String(category.name),
-              pages,
-            });
-          }
-        }
-      } else {
-        const pages = getPagesFromFolder(item).map((p) => ({
-          name: typeof p.name === "string" ? p.name : String(p.name),
-          url: p.url,
-        }));
-        if (pages.length > 0) {
-          groups.push({
-            label:
-              typeof item.name === "string" ? item.name : String(item.name),
-            pages,
-          });
-        }
+      const pages = (
+        isComponentsFolder(item)
+          ? getAllPagesFromFolder(item).filter(
+              (page) => page.url !== ROUTES.DOCS_COMPONENTS
+            )
+          : getPagesFromFolder(item)
+      ).map((p) => ({
+        name: typeof p.name === "string" ? p.name : String(p.name),
+        url: p.url,
+      }));
+      if (pages.length > 0) {
+        groups.push({
+          label: typeof item.name === "string" ? item.name : String(item.name),
+          pages,
+        });
       }
     }
     return groups;
-  }, [tree, currentBase]);
+  }, [tree]);
 
   const handleDocPageHighlight = useCallback(
     (item: { url: string; name?: string }) => {

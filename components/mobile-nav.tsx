@@ -3,7 +3,7 @@
 import type { Root as PageTreeRoot } from "fumadocs-core/page-tree";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -15,11 +15,7 @@ import {
 import { ROUTES } from "@/constants/routes";
 import { useFeedback } from "@/hooks/use-feedback";
 import { EXCLUDED_SECTIONS, isComponentsFolder } from "@/lib/docs";
-import {
-  getCategoryFoldersForBase,
-  getCurrentBase,
-  getPagesFromFolder,
-} from "@/lib/page-tree";
+import { getAllPagesFromFolder, getPagesFromFolder } from "@/lib/page-tree";
 import { cn } from "@/lib/utils";
 
 const MobileLink = ({
@@ -90,8 +86,6 @@ export const MobileNav = ({
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const currentBase = getCurrentBase(pathname);
 
   return (
     <Popover sounds open={open} onOpenChange={setOpen}>
@@ -160,24 +154,17 @@ export const MobileNav = ({
               return null;
             }
 
-            if (isComponentsFolder(item)) {
-              return getCategoryFoldersForBase(item, currentBase).map(
-                (category) => (
-                  <MobileNavGroup
-                    key={category.$id}
-                    label={category.name}
-                    pages={getPagesFromFolder(category)}
-                    setOpen={setOpen}
-                  />
+            const pages = isComponentsFolder(item)
+              ? getAllPagesFromFolder(item).filter(
+                  (page) => page.url !== ROUTES.DOCS_COMPONENTS
                 )
-              );
-            }
+              : getPagesFromFolder(item);
 
             return (
               <MobileNavGroup
                 key={item.$id}
                 label={item.name}
-                pages={getPagesFromFolder(item)}
+                pages={pages}
                 setOpen={setOpen}
               />
             );

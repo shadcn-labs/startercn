@@ -23,32 +23,3 @@ export const getAllPagesFromFolder = (
 
   return pages;
 };
-
-const matchesBase = (folder: PageTreeFolder, base: string): boolean =>
-  folder.$id === base ||
-  (typeof folder.name === "string" && folder.name.toLowerCase() === base);
-
-export const getCategoryFoldersForBase = (
-  componentsFolder: PageTreeFolder,
-  currentBase: string
-): PageTreeFolder[] => {
-  for (const child of componentsFolder.children) {
-    if (child.type !== "folder") {
-      continue;
-    }
-
-    if (matchesBase(child, currentBase)) {
-      return child.children.filter(
-        (nestedChild): nestedChild is PageTreeFolder =>
-          nestedChild.type === "folder"
-      );
-    }
-  }
-
-  return [];
-};
-
-export const getCurrentBase = (pathname: string): string => {
-  const match = pathname.match(/\/docs\/components\/([^/]+)\//);
-  return match ? match[1] : "new-york";
-};
