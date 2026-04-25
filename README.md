@@ -1,11 +1,11 @@
-<h1 align="center">Shadcn Registry Starter</h1>
+<h1 align="center">startercn</h1>
 
 <p align="center">
 A template for building and publishing your own custom shadcn registry components. Includes documentation, landing page, and everything you need to deploy your component registry.
 </p>
 
 <p align="center">
-  <img src="https://startercn.vercel.app/og" alt="Shadcn Registry Starter banner" />
+  <img src="https://startercn.vercel.app/og" alt="startercn banner" />
 </p>
 
 ## Features

@@ -32,7 +32,7 @@ export const SITE = {
     "tailwindcss",
     "npx shadcn add",
   ] as const,
-  NAME: "Shadcn Registry Starter",
+  NAME: "startercn",
   OG_IMAGE: `${baseUrl}/og`,
   REGISTRY: baseUrl,
   URL: baseUrl,
