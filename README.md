@@ -5,7 +5,7 @@ A template for building and publishing your own custom shadcn registry component
 </p>
 
 <p align="center">
-  <img src="https://shadcn-registry-starter.vercel.app/og" alt="Shadcn Registry Starter banner" />
+  <img src="https://startercn.vercel.app/og" alt="Shadcn Registry Starter banner" />
 </p>
 
 ## Features
