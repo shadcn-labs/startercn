@@ -11,7 +11,7 @@ export const LINK = {
   GITHUB: githubUrl,
   LICENSE: `${githubUrl}/blob/${GITHUB.branch}/LICENSE`,
   PORTFOLIO: "https://aniketpawar.com",
-  SPONSOR: `https://github.com/sponsors/${GITHUB.user}`,
+  SPONSOR: `https://github.com/sponsors/Aniket-508`,
   X: "https://x.com/alaymanguy",
   X_SHADCN_LABS: "https://x.com/shadcnlabs",
 } as const;
