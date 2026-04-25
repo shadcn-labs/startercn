@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
-export const SITE_AGENT_SKILL_MD = `# ${SITE.NAME} — shadcn registry starter
+export const SITE_AGENT_SKILL_MD = `# ${SITE.NAME}
 
 ## Summary
 
