@@ -18,6 +18,8 @@ const eventSchema = z.object({
     "set_layout",
     "open_command_menu",
     "click_edit_page",
+    "click_registry_add_button",
+    "copy_registry_command",
   ]),
   properties: z
     .record(

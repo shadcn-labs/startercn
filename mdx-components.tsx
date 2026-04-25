@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Callout } from "@/components/callout";
+import { CodeBlock } from "@/components/code-block";
 import { CodeBlockCommand } from "@/components/code-block-command";
 import { CodeTabs } from "@/components/code-tabs";
 // import { ComponentPreview } from "@/components/component-preview";
@@ -36,6 +37,7 @@ export const mdxComponents = {
   AspectRatio,
   Button,
   Callout,
+  CodeBlock,
   CodeTabs,
   // ComponentPreview,
   ComponentSource,
