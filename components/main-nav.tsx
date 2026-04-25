@@ -6,13 +6,13 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export function MainNav({
+export const MainNav = ({
   items,
   className,
   ...props
 }: React.ComponentProps<"nav"> & {
   items: { href: string; label: string }[];
-}) {
+}) => {
   const pathname = usePathname();
 
   return (
@@ -22,6 +22,7 @@ export function MainNav({
           <Link
             href={item.href}
             className={cn(pathname === item.href && "text-primary")}
+            transitionTypes={["nav-forward"]}
           >
             {item.label}
           </Link>
@@ -29,4 +30,4 @@ export function MainNav({
       ))}
     </nav>
   );
-}
+};

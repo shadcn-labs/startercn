@@ -13,7 +13,11 @@ import { useFeedback } from "@/hooks/use-feedback";
 import { addQueryParams } from "@/lib/url";
 import { cn } from "@/lib/utils";
 
-export function GitHubStars({ stargazersCount }: { stargazersCount: number }) {
+export const GitHubStars = ({
+  stargazersCount,
+}: {
+  stargazersCount: number;
+}) => {
   const play = useFeedback({ sound: "success" });
 
   return (
@@ -42,4 +46,4 @@ export function GitHubStars({ stargazersCount }: { stargazersCount: number }) {
       </TooltipContent>
     </Tooltip>
   );
-}
+};

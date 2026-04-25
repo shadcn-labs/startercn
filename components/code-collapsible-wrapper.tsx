@@ -3,62 +3,63 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-export function CodeCollapsibleWrapper({
+export const CodeCollapsibleWrapper = ({
   className,
   children,
   navTriggerClassName,
   ...props
-}: React.ComponentProps<"div"> & {
+}: React.ComponentProps<typeof Collapsible> & {
   navTriggerClassName?: string;
-}) {
+}) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
-    <div
-      data-state={isOpened ? "open" : "closed"}
+    <Collapsible
+      sounds
+      open={isOpened}
+      onOpenChange={setIsOpened}
       className={cn("group/collapsible relative md:-mx-1", className)}
       {...props}
     >
-      <div
-        className={cn(
-          "absolute top-1.5 right-9 z-10 flex items-center",
-          navTriggerClassName
-        )}
-      >
-        <button
-          className="contents"
-          onClick={() => setIsOpened((open) => !open)}
-          type="button"
+      <CollapsibleTrigger asChild>
+        <div
+          className={cn(
+            "absolute top-1.5 right-9 z-10 flex items-center",
+            navTriggerClassName
+          )}
         >
           <Button
-            className="text-muted-foreground h-7 rounded-md px-2"
-            size="sm"
             variant="ghost"
+            size="sm"
+            className="text-muted-foreground h-7 rounded-md px-2"
           >
             {isOpened ? "Collapse" : "Expand"}
           </Button>
-          <Separator className="mx-1.5 h-4!" orientation="vertical" />
-        </button>
-      </div>
-      <div
+          <Separator orientation="vertical" className="mx-1.5 h-4!" />
+        </div>
+      </CollapsibleTrigger>
+      <CollapsibleContent
+        forceMount
         className="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 data-[state=closed]:[content-visibility:auto] [&>figure]:mt-0 [&>figure]:md:mx-0!"
-        data-state={isOpened ? "open" : "closed"}
       >
         {children}
+      </CollapsibleContent>
+
+      <div className="absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-lg bg-linear-to-b from-code/70 to-code group-data-[state=open]/collapsible:hidden">
+        <CollapsibleTrigger asChild>
+          <Button variant="outline" size="sm">
+            Expand
+          </Button>
+        </CollapsibleTrigger>
       </div>
-      <div className="from-code/70 to-code absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-lg bg-linear-to-b group-data-[state=open]/collapsible:hidden">
-        <Button
-          onClick={() => setIsOpened(true)}
-          size="sm"
-          type="button"
-          variant="outline"
-        >
-          Expand
-        </Button>
-      </div>
-    </div>
+    </Collapsible>
   );
-}
+};

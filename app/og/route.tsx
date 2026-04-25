@@ -1,11 +1,12 @@
 import { ImageResponse } from "next/og";
 
 import { LogoMark } from "@/components/logo";
+import { SITE } from "@/constants/site";
 
 export const GET = (request: Request) => {
   const { searchParams } = new URL(request.url);
-  const title = searchParams.get("title");
-  const description = searchParams.get("description");
+  const title = searchParams.get("title") || SITE.NAME;
+  const description = searchParams.get("description") || SITE.DESCRIPTION.LONG;
 
   return new ImageResponse(
     <div tw="flex h-full w-full bg-black text-white">

@@ -1,5 +1,5 @@
 export const FALLBACK_SITE_ORIGIN =
-  "https://shadcn-registry-kit.vercel.app" as const;
+  "https://shadcn-registry-starter.vercel.app" as const;
 
 const getBaseUrl = () => {
   if (process.env.NODE_ENV !== "production") {
@@ -17,8 +17,8 @@ const baseUrl = getBaseUrl();
 
 export const SITE = {
   AUTHOR: {
-    NAME: "mehmetpekcan",
-    TWITTER: "@mehmetpekcan",
+    NAME: "Aniket Pawar",
+    TWITTER: "@alaymanguy",
   },
   DESCRIPTION: {
     LONG: "A starter kit for building and publishing your own shadcn registry components.",
@@ -33,8 +33,8 @@ export const SITE = {
     "tailwindcss",
     "npx shadcn add",
   ] as const,
-  NAME: "shadcn/registry-kit",
-  OG_IMAGE: `${baseUrl}/opengraph-image.png`,
+  NAME: "Shadcn Registry Starter",
+  OG_IMAGE: `${baseUrl}/og`,
   REGISTRY: baseUrl,
   URL: baseUrl,
 };

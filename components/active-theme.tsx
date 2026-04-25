@@ -12,13 +12,13 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function ActiveThemeProvider({
+export const ActiveThemeProvider = ({
   children,
   initialTheme,
 }: {
   children: ReactNode;
   initialTheme?: string;
-}) {
+}) => {
   const [activeTheme, setActiveTheme] = useState<string>(
     () => initialTheme || DEFAULT_THEME
   );
@@ -40,9 +40,9 @@ export function ActiveThemeProvider({
       {children}
     </ThemeContext.Provider>
   );
-}
+};
 
-export function useThemeConfig() {
+export const useThemeConfig = () => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
     throw new Error(
@@ -50,4 +50,4 @@ export function useThemeConfig() {
     );
   }
   return context;
-}
+};

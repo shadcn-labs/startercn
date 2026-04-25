@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { META_THEME_COLORS, SITE } from "@/constants/site";
+import { SITE, META_THEME_COLORS } from "@/constants/site";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {

@@ -4,13 +4,13 @@ import { useCallback, useMemo } from "react";
 
 import { CopyButton } from "@/components/copy-button";
 import { getIconForPackageManager } from "@/components/icons";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import type { PackageManager } from "@/hooks/use-package-manager";
 import { usePackageManager } from "@/hooks/use-package-manager";
 import type { Event } from "@/lib/events";
 import { cn } from "@/lib/utils";
 
-export function CodeBlockCommand({
+export const CodeBlockCommand = ({
   __npm__,
   __yarn__,
   __pnpm__,
@@ -24,7 +24,7 @@ export function CodeBlockCommand({
   __bun__?: string;
   className?: string;
   copyEvent?: Event["name"];
-}) {
+}) => {
   const [packageManager, setPackageManager] = usePackageManager();
 
   const commandTabs = useMemo(
@@ -34,7 +34,7 @@ export function CodeBlockCommand({
       pnpm: __pnpm__,
       yarn: __yarn__,
     }),
-    [__bun__, __npm__, __pnpm__, __yarn__]
+    [__npm__, __pnpm__, __yarn__, __bun__]
   );
 
   const handlePackageManagerChange = useCallback(
@@ -67,6 +67,7 @@ export function CodeBlockCommand({
               <TabsTrigger
                 key={key}
                 className="data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
+                sound="tabSwitch"
                 value={key}
               >
                 {key}
@@ -79,9 +80,9 @@ export function CodeBlockCommand({
             <TabsContent key={key} className="mt-0 px-4 py-3.5" value={key}>
               <pre>
                 <code
-                  className="font-mono text-sm/none"
-                  data-language="bash"
                   data-slot="code-block"
+                  data-language="bash"
+                  className="font-mono text-sm/none"
                 >
                   <span className="select-none">$ </span>
                   {value}
@@ -93,9 +94,9 @@ export function CodeBlockCommand({
       </Tabs>
       <CopyButton
         className="absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100"
-        event={copyEvent}
         value={copyValue}
+        event={copyEvent}
       />
     </div>
   );
-}
+};
