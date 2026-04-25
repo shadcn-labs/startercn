@@ -1,6 +1,12 @@
-# Shadcn Registry Kit
+<h1 align="center">Shadcn Registry Starter</h1>
 
+<p align="center">
 A template for building and publishing your own custom shadcn registry components. Includes documentation, landing page, and everything you need to deploy your component registry.
+</p>
+
+<p align="center">
+  <img src="https://shadcn-registry-starter.vercel.app/og" alt="Shadcn Registry Starter banner" />
+</p>
 
 ## Features
 
@@ -65,4 +71,4 @@ npx shadcn@latest add https://your-domain.com/r/your-component.json
 
 ## License
 
-MIT - Free to use for personal and commercial projects.
+[MIT](./LICENSE)
