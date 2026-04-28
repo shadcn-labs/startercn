@@ -1,6 +1,8 @@
 import { createMDX } from "fumadocs-mdx/next";
 
-const SHADCN_MCP_DOCS_URL = "https://ui.shadcn.com/docs/mcp";
+import { LINK } from "@/constants/links";
+
+import { ROUTES } from "./constants/routes";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -13,11 +15,11 @@ const nextConfig = {
       '</.well-known/api-catalog>; rel="api-catalog"',
       '</openapi.json>; rel="service-desc"',
       '</docs>; rel="service-doc"',
-      `<${SHADCN_MCP_DOCS_URL}>; rel="service-doc"; title="shadcn MCP server"`,
+      `<${LINK.SHADCN_MCP_DOCS}>; rel="service-doc"; title="shadcn MCP server"`,
       '</.well-known/agent-skills/index.json>; rel="describedby"',
     ].join(", ");
 
-    return [{ headers: [{ key: "Link", value: link }], source: "/" }];
+    return [{ headers: [{ key: "Link", value: link }], source: ROUTES.HOME }];
   },
   images: {
     remotePatterns: [
