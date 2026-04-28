@@ -1,7 +1,6 @@
 import { createMDX } from "fumadocs-mdx/next";
 
-import { LINK } from "@/constants/links";
-
+import { LINK } from "./constants/links";
 import { ROUTES } from "./constants/routes";
 
 /** @type {import('next').NextConfig} */
