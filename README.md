@@ -13,7 +13,7 @@ A template for building and publishing your own custom shadcn registry component
 - 📦 **Ready-to-use template** - Fork and start building immediately
 - 📚 **Documentation site** - Beautiful docs powered by Fumadocs
 - 🎨 **Shadcn registry compatible** - Works with `npx shadcn add`
-- 🤖 **[Agent ready](https://isitagentready.com/startercn.vercel.app)** - Includes `llms.txt`, `llms-full.txt`, agent skills discovery routes, and API catalog endpoints
+- 🤖 **[Agent ready](https://www.mintlify.com/score/startercn)** - Includes `llms.txt`, `llms-full.txt`, agent skills discovery routes, and API catalog endpoints
 - 🔊 **[Web audio feedback](https://audio.raphaelsalaja.com/)** - Built-in sound effects powered by `@web-kits/audio`
 - 📳 **[Web haptics](https://haptics.lochie.me/)** - Optional haptic feedback hooks for supported devices via `web-haptics`
 - ✨ **[Motion animations](https://motion.dev/)** - `motion`-powered UI polish for copy states, text transitions, and interactive elements
