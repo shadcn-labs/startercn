@@ -1,7 +1,10 @@
 import { createMDX } from "fumadocs-mdx/next";
+import { createJiti } from "jiti";
 
-import { LINK } from "./constants/links";
-import { ROUTES } from "./constants/routes";
+const jiti = createJiti(import.meta.url);
+
+const { LINK } = await jiti.import("./constants/links");
+const { ROUTES } = await jiti.import("./constants/routes");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
