@@ -19,9 +19,9 @@ ${SITE.DESCRIPTION.LONG}
 - [Browse components](${base}${ROUTES.DOCS_COMPONENTS})
 - [Documentation](${base}${ROUTES.DOCS})
 - [LLM index (llms.txt)](${base}${ROUTES.LLMS})
-- [API catalog](${base}/.well-known/api-catalog)
-- [OpenAPI description](${base}/openapi.json)
-- [Agent skills index](${base}/.well-known/agent-skills/index.json)
+- [API catalog](${base}${ROUTES.API_CATALOG})
+- [OpenAPI description](${base}${ROUTES.OPENAPI})
+- [Agent skills index](${base}${ROUTES.AGENT_SKILLS_INDEX})
 `;
 };
 

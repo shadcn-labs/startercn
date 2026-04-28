@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
 export const GET = () => {
@@ -6,7 +7,7 @@ export const GET = () => {
     "Allow: /",
     "Content-Signal: ai-train=yes, search=yes, ai-input=yes",
     "",
-    `Sitemap: ${SITE.URL}/sitemap.xml`,
+    `Sitemap: ${SITE.URL}${ROUTES.SITEMAP}`,
     "",
   ].join("\n");
 

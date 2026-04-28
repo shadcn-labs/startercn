@@ -14,11 +14,11 @@ const nextConfig = {
   },
   headers() {
     const link = [
-      '</.well-known/api-catalog>; rel="api-catalog"',
-      '</openapi.json>; rel="service-desc"',
-      '</docs>; rel="service-doc"',
+      `<${ROUTES.API_CATALOG}>; rel="api-catalog"`,
+      `<${ROUTES.OPENAPI}>; rel="service-desc"`,
+      `<${ROUTES.DOCS}>; rel="service-doc"`,
       `<${LINK.SHADCN_MCP_DOCS}>; rel="service-doc"; title="shadcn MCP server"`,
-      '</.well-known/agent-skills/index.json>; rel="describedby"',
+      `<${ROUTES.AGENT_SKILLS_INDEX}>; rel="describedby"`,
     ].join(", ");
 
     return [{ headers: [{ key: "Link", value: link }], source: ROUTES.HOME }];
@@ -41,9 +41,9 @@ const nextConfig = {
   redirects() {
     return [
       {
-        destination: "/docs/:path*.md",
+        destination: `${ROUTES.DOCS}/:path*.md`,
         permanent: true,
-        source: "/docs/:path*.mdx",
+        source: `${ROUTES.DOCS}/:path*.mdx`,
       },
     ];
   },

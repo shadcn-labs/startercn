@@ -12,7 +12,7 @@ Help users discover, inspect, and install components from this public shadcn reg
 
 ## Registry
 
-- Registry JSON: \`/r/registry.json\`
+- Registry JSON: \`${ROUTES.REGISTRY}\`
 - Docs: ${ROUTES.DOCS}
 
 ## MCP

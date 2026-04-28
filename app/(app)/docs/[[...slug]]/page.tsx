@@ -13,7 +13,7 @@ import { PageTransition } from "@/components/page-transition";
 import { Badge } from "@/components/ui/badge";
 import { ROUTES } from "@/constants/routes";
 import { formatTitleFromSlug } from "@/lib/docs";
-import { getPageImage, source } from "@/lib/source";
+import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source";
 import { absoluteUrl } from "@/lib/utils";
 import { mdxComponents } from "@/mdx-components";
 import { BreadcrumbJsonLd } from "@/seo/json-ld";
@@ -82,7 +82,7 @@ const Page = async (props: { params: Promise<{ slug?: string[] }> }) => {
   const doc = page.data;
   const MdxContent = doc.body;
   const neighbours = findNeighbour(source.pageTree, page.url);
-  const raw = await page.data.getText("raw");
+  const markdownUrl = getPageMarkdownUrl(page).url;
 
   const { links } = doc as { links?: { doc?: string; api?: string } };
   const breadcrumbs = buildBreadcrumbs(params.slug ?? [], doc.title, page.url);
@@ -112,7 +112,10 @@ const Page = async (props: { params: Promise<{ slug?: string[] }> }) => {
                     </h1>
                     <div className="docs-nav flex items-center gap-2">
                       <div className="hidden sm:block">
-                        <DocsCopyPage page={raw} url={absoluteUrl(page.url)} />
+                        <DocsCopyPage
+                          markdownUrl={absoluteUrl(markdownUrl)}
+                          url={absoluteUrl(page.url)}
+                        />
                       </div>
                       <div className="ml-auto flex gap-2">
                         <DocsShareMenu

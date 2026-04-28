@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDownIcon } from "lucide-react";
+import { useCallback } from "react";
 
 import {
   ChatGptIcon,
@@ -41,7 +42,7 @@ const MENU_ITEMS: [string, (url: string) => React.ReactNode][] = [
   [
     "markdown",
     (url) => (
-      <a href={`${url}.mdx`} rel="noopener noreferrer" target="_blank">
+      <a href={`${url}.md`} rel="noopener noreferrer" target="_blank">
         <MarkdownDocIcon />
         View as Markdown
       </a>
@@ -56,7 +57,7 @@ const MENU_ITEMS: [string, (url: string) => React.ReactNode][] = [
         target="_blank"
       >
         <V0Icon />
-        <span className="-translate-x-[2px]">Open in v0</span>
+        <span className="translate-x-[-2px]">Open in v0</span>
       </a>
     ),
   ],
@@ -154,7 +155,18 @@ const MENU_ITEMS: [string, (url: string) => React.ReactNode][] = [
   ],
 ];
 
-export const DocsCopyPage = ({ page, url }: { page: string; url: string }) => {
+export const DocsCopyPage = ({
+  markdownUrl,
+  url,
+}: {
+  markdownUrl: string;
+  url: string;
+}) => {
+  const copyValue = useCallback(async () => {
+    const response = await fetch(markdownUrl);
+    return response.text();
+  }, [markdownUrl]);
+
   const trigger = (
     <Button
       variant="secondary"
@@ -170,7 +182,7 @@ export const DocsCopyPage = ({ page, url }: { page: string; url: string }) => {
       <div className="group/buttons relative flex rounded-lg bg-secondary *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10">
         <PopoverAnchor />
         <CopyButton
-          value={page}
+          value={copyValue}
           showTooltip={false}
           sound="copy"
           variant="secondary"

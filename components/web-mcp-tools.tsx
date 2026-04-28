@@ -84,7 +84,7 @@ export const WebMcpTools = () => {
       description:
         "Fetch the published shadcn registry manifest (registry.json) for this site.",
       execute: async (_input, { signal }) => {
-        const res = await fetch(`${window.location.origin}/r/registry.json`, {
+        const res = await fetch(`${window.location.origin}${ROUTES.REGISTRY}`, {
           signal,
         });
         if (!res.ok) {

@@ -27,9 +27,9 @@ ${documentationIndex()}
 
 - [Full documentation](${base}${ROUTES.LLMS_FULL})
 - [Homepage markdown](${base}${ROUTES.LLMS_MD}/content.md)
-- [OpenAPI description](${base}/openapi.json)
-- [API catalog](${base}/.well-known/api-catalog)
-- [Agent skill](${base}/.well-known/agent-skills/site-skill.md)
+- [OpenAPI description](${base}${ROUTES.OPENAPI})
+- [API catalog](${base}${ROUTES.API_CATALOG})
+- [Agent skill](${base}${ROUTES.AGENT_SKILLS_SITE_SKILL})
 - [shadcn MCP server documentation](${LINK.SHADCN_MCP_DOCS})
 `;
 };

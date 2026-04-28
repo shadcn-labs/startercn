@@ -21,7 +21,7 @@ export const buildOpenApiDocument = (
     },
     openapi: "3.0.3",
     paths: {
-      "/.well-known/agent-skills/index.json": {
+      [ROUTES.AGENT_SKILLS_INDEX]: {
         get: {
           responses: {
             "200": { description: "Agent skills index" },
@@ -29,7 +29,7 @@ export const buildOpenApiDocument = (
           summary: "Agent skills discovery index",
         },
       },
-      "/.well-known/agent-skills/site-skill.md": {
+      [ROUTES.AGENT_SKILLS_SITE_SKILL]: {
         get: {
           responses: {
             "200": { description: "Agent skill markdown" },
@@ -37,7 +37,7 @@ export const buildOpenApiDocument = (
           summary: "Site agent skill markdown",
         },
       },
-      "/.well-known/api-catalog": {
+      [ROUTES.API_CATALOG]: {
         get: {
           responses: {
             "200": { description: "API catalog linkset" },
@@ -51,7 +51,7 @@ export const buildOpenApiDocument = (
           summary: "API catalog headers",
         },
       },
-      "/api/status": {
+      [ROUTES.API_STATUS]: {
         get: {
           responses: {
             "200": {
@@ -69,7 +69,7 @@ export const buildOpenApiDocument = (
           summary: "Service health",
         },
       },
-      "/llms-full.txt": {
+      [ROUTES.LLMS_FULL]: {
         get: {
           responses: {
             "200": { description: "Plain text bundle" },
@@ -77,7 +77,7 @@ export const buildOpenApiDocument = (
           summary: "Full LLM-oriented documentation export",
         },
       },
-      "/llms.txt": {
+      [ROUTES.LLMS]: {
         get: {
           responses: {
             "200": { description: "Plain text index" },
@@ -85,7 +85,7 @@ export const buildOpenApiDocument = (
           summary: "LLM-oriented documentation index",
         },
       },
-      "/openapi.json": {
+      [ROUTES.OPENAPI]: {
         get: {
           responses: {
             "200": {
@@ -100,7 +100,7 @@ export const buildOpenApiDocument = (
           summary: "This OpenAPI document",
         },
       },
-      "/r/registry.json": {
+      [ROUTES.REGISTRY]: {
         get: {
           responses: {
             "200": {

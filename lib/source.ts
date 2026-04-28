@@ -34,8 +34,9 @@ export const getLLMText = async (page: InferPageType<typeof source>) => {
     await page.data.getText("raw"),
     source.pageTree
   );
+  const sections = [page.data.description, processed].filter(Boolean);
 
   return `# ${page.data.title}
 
-${processed}`;
+${sections.join("\n\n")}`;
 };

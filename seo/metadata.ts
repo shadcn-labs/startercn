@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { LINK } from "@/constants/links";
+import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
 interface CreatePageMetadataOptions {
@@ -120,7 +121,7 @@ export const baseMetadata: Metadata = {
     shortcut: "/favicon-16x16.png",
   },
   keywords: [...SITE.KEYWORDS],
-  manifest: "/manifest.webmanifest",
+  manifest: ROUTES.MANIFEST,
   metadataBase: new URL(SITE.URL),
   openGraph: {
     description: SITE.DESCRIPTION.LONG,

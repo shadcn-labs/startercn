@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants/routes";
 import { requestOrigin } from "@/lib/agent-discovery/request-origin";
 import { siteAgentSkillDigest } from "@/lib/agent-discovery/site-agent-skill";
 
@@ -15,7 +16,7 @@ export const GET = (request: Request) => {
           digest: siteAgentSkillDigest(),
           name: "registry-starter",
           type: "skill-md",
-          url: `${base}/.well-known/agent-skills/site-skill.md`,
+          url: `${base}${ROUTES.AGENT_SKILLS_SITE_SKILL}`,
         },
       ],
     },

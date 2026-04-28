@@ -14,22 +14,22 @@ const catalogLinkset = (origin: string) => {
         anchor: `${base}/`,
         "api-catalog": [
           {
-            href: `${base}/.well-known/api-catalog`,
+            href: `${base}${ROUTES.API_CATALOG}`,
             type: `application/linkset+json; profile="${PROFILE}"`,
           },
         ],
         describedby: [
           {
-            href: `${base}/.well-known/agent-skills/index.json`,
+            href: `${base}${ROUTES.AGENT_SKILLS_INDEX}`,
             type: "application/json",
           },
           {
-            href: `${base}/.well-known/agent-skills/site-skill.md`,
+            href: `${base}${ROUTES.AGENT_SKILLS_SITE_SKILL}`,
             type: "text/markdown",
           },
         ],
         "service-desc": [
-          { href: `${base}/openapi.json`, type: "application/json" },
+          { href: `${base}${ROUTES.OPENAPI}`, type: "application/json" },
         ],
         "service-doc": [
           { href: `${base}${ROUTES.DOCS}`, type: "text/html" },
@@ -38,15 +38,19 @@ const catalogLinkset = (origin: string) => {
           { href: `${base}${homeContentRoute}`, type: "text/markdown" },
           { href: LINK.SHADCN_MCP_DOCS, type: "text/html" },
         ],
-        status: [{ href: `${base}/api/status`, type: "application/json" }],
+        status: [
+          { href: `${base}${ROUTES.API_STATUS}`, type: "application/json" },
+        ],
       },
       {
-        anchor: `${base}/r/registry.json`,
+        anchor: `${base}${ROUTES.REGISTRY}`,
         "service-desc": [
-          { href: `${base}/openapi.json`, type: "application/json" },
+          { href: `${base}${ROUTES.OPENAPI}`, type: "application/json" },
         ],
         "service-doc": [{ href: `${base}${ROUTES.DOCS}`, type: "text/html" }],
-        status: [{ href: `${base}/api/status`, type: "application/json" }],
+        status: [
+          { href: `${base}${ROUTES.API_STATUS}`, type: "application/json" },
+        ],
       },
     ],
   };
@@ -70,7 +74,7 @@ export const HEAD = () => {
   return new Response(null, {
     headers: {
       "Content-Type": profile,
-      Link: '</.well-known/api-catalog>; rel="api-catalog"',
+      Link: `<${ROUTES.API_CATALOG}>; rel="api-catalog"`,
     },
   });
 };

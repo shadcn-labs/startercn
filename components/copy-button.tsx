@@ -34,7 +34,7 @@ export interface CopyButtonProps extends Omit<
   React.ComponentProps<typeof Button>,
   "value"
 > {
-  value: string | (() => string);
+  value: string | (() => Promise<string> | string);
   src?: string;
   event?: Event["name"];
   showTooltip?: boolean;
@@ -49,28 +49,31 @@ export const CopyButton = ({
   showTooltip = true,
   ...props
 }: CopyButtonProps) => {
-  const getValue = useCallback(
-    () => (typeof value === "function" ? value() : value),
-    [value]
-  );
+  const getValue = useCallback(() => {
+    if (typeof value === "function") {
+      return value();
+    }
+
+    return value;
+  }, [value]);
 
   const { copyToClipboard, isCopied } = useCopyToClipboard({
-    onCopy: () => {
-      if (event) {
-        trackEvent({
-          name: event,
-          properties: {
-            code: getValue(),
-          },
-        });
-      }
-    },
     timeout: 1000,
   });
 
   const handleCopy = useCallback(async () => {
-    await copyToClipboard(getValue());
-  }, [copyToClipboard, getValue]);
+    const text = await getValue();
+    const hasCopied = await copyToClipboard(text);
+
+    if (hasCopied && event) {
+      trackEvent({
+        name: event,
+        properties: {
+          code: text,
+        },
+      });
+    }
+  }, [copyToClipboard, event, getValue]);
 
   const copyButton = (
     <Button
