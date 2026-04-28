@@ -16,7 +16,8 @@ export const GET = async (
 
   return new Response(await getLLMText(page), {
     headers: {
-      "Content-Type": "text/markdown",
+      "Cache-Control": "public, max-age=3600",
+      "Content-Type": "text/markdown; charset=utf-8",
     },
   });
 };

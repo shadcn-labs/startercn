@@ -11,6 +11,7 @@ const nextConfig = {
       '</.well-known/api-catalog>; rel="api-catalog"',
       '</openapi.json>; rel="service-desc"',
       '</docs>; rel="service-doc"',
+      '<https://ui.shadcn.com/docs/mcp>; rel="service-doc"; title="shadcn MCP server"',
       '</.well-known/agent-skills/index.json>; rel="describedby"',
     ].join(", ");
 

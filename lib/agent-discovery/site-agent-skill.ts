@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 
+import { LINK } from "@/constants/links";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
@@ -13,6 +14,10 @@ Help users discover, inspect, and install components from this public shadcn reg
 
 - Registry JSON: \`/r/registry.json\`
 - Docs: ${ROUTES.DOCS}
+
+## MCP
+
+This site is a shadcn-compatible registry. For MCP workflows, use the maintained shadcn MCP server documentation: ${LINK.SHADCN_MCP_DOCS}
 
 ## Install
 

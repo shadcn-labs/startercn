@@ -33,6 +33,9 @@ export const createPageMetadata = ({
   return {
     alternates: {
       canonical,
+      types: {
+        "text/markdown": `${canonical}.md`,
+      },
     },
     description,
     openGraph: {

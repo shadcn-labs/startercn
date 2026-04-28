@@ -1,3 +1,4 @@
+import { LINK } from "@/constants/links";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { homeContentRoute } from "@/lib/docs";
@@ -8,6 +9,11 @@ export const buildOpenApiDocument = (
   const base = origin.replace(/\/$/, "");
 
   return {
+    externalDocs: {
+      description:
+        "Use the maintained shadcn MCP server for registry browsing, search, and installation workflows.",
+      url: LINK.SHADCN_MCP_DOCS,
+    },
     info: {
       description: `Read-only HTTP surfaces for the ${SITE.NAME} documentation site and shadcn component registry.`,
       title: `${SITE.NAME} public HTTP API`,
