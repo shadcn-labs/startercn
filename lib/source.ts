@@ -3,6 +3,7 @@ import { loader } from "fumadocs-core/source";
 
 import { docs } from "@/.source/server";
 import { ROUTES } from "@/constants/routes";
+import { AGENT_DOCS_DIRECTIVE_MARKDOWN } from "@/lib/agent-discovery/directive";
 import { docsContentRoute, docsImageRoute } from "@/lib/docs";
 import { processMdxForLLMs } from "@/lib/llm";
 
@@ -34,7 +35,11 @@ export const getLLMText = async (page: InferPageType<typeof source>) => {
     await page.data.getText("raw"),
     source.pageTree
   );
-  const sections = [page.data.description, processed].filter(Boolean);
+  const sections = [
+    page.data.description,
+    AGENT_DOCS_DIRECTIVE_MARKDOWN,
+    processed,
+  ].filter(Boolean);
 
   return `# ${page.data.title}
 

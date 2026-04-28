@@ -1,5 +1,6 @@
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+import { AGENT_DOCS_DIRECTIVE_MARKDOWN } from "@/lib/agent-discovery/directive";
 import { requestOrigin } from "@/lib/agent-discovery/request-origin";
 import { markdownResponse } from "@/lib/api";
 
@@ -11,6 +12,8 @@ const homepageMarkdown = (origin: string): string => {
   return `# ${SITE.NAME}
 
 ${SITE.DESCRIPTION.LONG}
+
+${AGENT_DOCS_DIRECTIVE_MARKDOWN}
 
 ## Quick links
 

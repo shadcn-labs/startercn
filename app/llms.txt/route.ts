@@ -8,13 +8,13 @@ import { source } from "@/lib/source";
 
 export const revalidate = false;
 
-const documentationIndex = () =>
+const documentationIndex = (base: string) =>
   llms(source)
     .index()
     .replace(/^#\s+(.+)$/m, "## $1")
     .replaceAll(
       /\]\((\/docs(?:\/[^)#\s]+)?)(#[^)]+)?\)/g,
-      (_, pathname, hash = "") => `](${pathname}.md${hash})`
+      (_, pathname, hash = "") => `](${base}${pathname}.md${hash})`
     )
     .trim();
 
@@ -25,7 +25,7 @@ const docsIndex = (origin: string) => {
 
 > ${SITE.DESCRIPTION.LONG} Use this index to discover the available documentation pages, markdown mirrors, and registry resources before browsing.
 
-${documentationIndex()}
+${documentationIndex(base)}
 
 ## Machine-readable Resources
 

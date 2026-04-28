@@ -41,6 +41,11 @@ const nextConfig = {
   redirects() {
     return [
       {
+        destination: `${ROUTES.DOCS}.md`,
+        permanent: true,
+        source: `${ROUTES.DOCS}.mdx`,
+      },
+      {
         destination: `${ROUTES.DOCS}/:path*.md`,
         permanent: true,
         source: `${ROUTES.DOCS}/:path*.mdx`,
