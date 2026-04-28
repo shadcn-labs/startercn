@@ -10,8 +10,6 @@ const homepageMarkdown = (origin: string): string => {
 
   return `# ${SITE.NAME}
 
-${SITE.DESCRIPTION.SHORT}
-
 ${SITE.DESCRIPTION.LONG}
 
 ## Quick links
