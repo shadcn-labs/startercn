@@ -27,16 +27,25 @@ export const createPageMetadata = ({
   path,
   title,
 }: CreatePageMetadataOptions): Metadata => {
-  const canonical = path.startsWith("/") ? path : `/${path}`;
-  const resolvedOgImage = ogImage ?? `/og${canonical === "/" ? "" : canonical}`;
+  const canonical = path.startsWith(ROUTES.HOME)
+    ? path
+    : `${ROUTES.HOME}${path}`;
+  const markdownAlternate =
+    canonical === ROUTES.DOCS || canonical.startsWith(`${ROUTES.DOCS}/`)
+      ? `${canonical}.md`
+      : undefined;
+  const resolvedOgImage =
+    ogImage ?? `${ROUTES.OG}${canonical === ROUTES.HOME ? "" : canonical}`;
   const resolvedTitle = ogTitle ?? title;
 
   return {
     alternates: {
       canonical,
-      types: {
-        "text/markdown": `${canonical}.md`,
-      },
+      ...(markdownAlternate && {
+        types: {
+          "text/markdown": markdownAlternate,
+        },
+      }),
     },
     description,
     openGraph: {
@@ -77,7 +86,7 @@ export const createPageMetadata = ({
 
 export const baseMetadata: Metadata = {
   alternates: {
-    canonical: "/",
+    canonical: ROUTES.HOME,
   },
   appleWebApp: {
     capable: true,

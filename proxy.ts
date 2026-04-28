@@ -16,7 +16,7 @@ const { rewrite: rewriteSuffix } = rewritePath(
 
 const proxy = (request: NextRequest) => {
   if (
-    request.nextUrl.pathname === "/" &&
+    request.nextUrl.pathname === ROUTES.HOME &&
     (request.method === "GET" || request.method === "HEAD") &&
     isMarkdownPreferred(request)
   ) {

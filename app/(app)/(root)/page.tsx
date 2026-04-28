@@ -1,6 +1,7 @@
 import { CommandBox } from "@/components/command-box";
 import { HomeCtas } from "@/components/home-ctas";
 import { PageTransition } from "@/components/page-transition";
+import { ROUTES } from "@/constants/routes";
 import { YourComponent } from "@/registry/new-york/your-component";
 import { BreadcrumbJsonLd } from "@/seo/json-ld";
 
@@ -10,7 +11,7 @@ export const revalidate = false;
 export default function IndexPage() {
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Home", path: "/" }]} />
+      <BreadcrumbJsonLd items={[{ name: "Home", path: ROUTES.HOME }]} />
       <PageTransition>
         <section className="relative overflow-hidden">
           <div className="container-wrapper relative">

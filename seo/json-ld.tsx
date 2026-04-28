@@ -1,4 +1,5 @@
 import { LINK } from "@/constants/links";
+import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
 const JsonLdScript = ({ data }: { data: Record<string, unknown> }) => (
@@ -85,7 +86,7 @@ export const BreadcrumbJsonLd = ({
       "@type": "BreadcrumbList",
       itemListElement: items.map((item, index) => ({
         "@type": "ListItem",
-        item: `${SITE.URL}${item.path.startsWith("/") ? item.path : `/${item.path}`}`,
+        item: `${SITE.URL}${item.path.startsWith(ROUTES.HOME) ? item.path : `${ROUTES.HOME}${item.path}`}`,
         name: item.name,
         position: index + 1,
       })),
