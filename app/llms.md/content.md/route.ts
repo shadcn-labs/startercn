@@ -1,6 +1,7 @@
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { requestOrigin } from "@/lib/agent-discovery/request-origin";
+import { markdownResponse } from "@/lib/api";
 
 export const revalidate = false;
 
@@ -23,18 +24,6 @@ ${SITE.DESCRIPTION.LONG}
 - [OpenAPI description](${base}${ROUTES.OPENAPI})
 - [Agent skills index](${base}${ROUTES.AGENT_SKILLS_INDEX})
 `;
-};
-
-const markdownResponse = (body: string, includeBody: boolean) => {
-  const tokens = Math.ceil(body.length / 4);
-
-  return new Response(includeBody ? body : null, {
-    headers: {
-      "Cache-Control": "public, max-age=60",
-      "Content-Type": "text/markdown; charset=utf-8",
-      "x-markdown-tokens": String(tokens),
-    },
-  });
 };
 
 export const GET = (request: Request) => {

@@ -12,6 +12,10 @@ const documentationIndex = () =>
   llms(source)
     .index()
     .replace(/^#\s+(.+)$/m, "## $1")
+    .replaceAll(
+      /\]\((\/docs(?:\/[^)#\s]+)?)(#[^)]+)?\)/g,
+      (_, pathname, hash = "") => `](${pathname}.md${hash})`
+    )
     .trim();
 
 const docsIndex = (origin: string) => {
