@@ -10,7 +10,7 @@ const { rewrite: rewriteDocs } = rewritePath(
   `${docsContentRoute}{/*path}/content.md`
 );
 const { rewrite: rewriteSuffix } = rewritePath(
-  `${ROUTES.DOCS}{/*path}.mdx`,
+  `${ROUTES.DOCS}{/*path}.md`,
   `${docsContentRoute}{/*path}/content.md`
 );
 

@@ -1,5 +1,7 @@
 import { createMDX } from "fumadocs-mdx/next";
 
+const SHADCN_MCP_DOCS_URL = "https://ui.shadcn.com/docs/mcp";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   devIndicators: false,
@@ -11,7 +13,7 @@ const nextConfig = {
       '</.well-known/api-catalog>; rel="api-catalog"',
       '</openapi.json>; rel="service-desc"',
       '</docs>; rel="service-doc"',
-      '<https://ui.shadcn.com/docs/mcp>; rel="service-doc"; title="shadcn MCP server"',
+      `<${SHADCN_MCP_DOCS_URL}>; rel="service-doc"; title="shadcn MCP server"`,
       '</.well-known/agent-skills/index.json>; rel="describedby"',
     ].join(", ");
 
@@ -31,6 +33,15 @@ const nextConfig = {
   },
   outputFileTracingIncludes: {
     "/*": ["./registry/**/*"],
+  },
+  redirects() {
+    return [
+      {
+        destination: "/docs/:path*.md",
+        permanent: true,
+        source: "/docs/:path*.mdx",
+      },
+    ];
   },
 };
 

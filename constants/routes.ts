@@ -5,7 +5,7 @@ export const ROUTES = {
   HOME: "/",
   LLMS: "/llms.txt",
   LLMS_FULL: "/llms-full.txt",
-  LLMS_MDX: "/llms.mdx",
+  LLMS_MD: "/llms.md",
   OG: "/og",
   RSS: "/rss.xml",
 } as const;

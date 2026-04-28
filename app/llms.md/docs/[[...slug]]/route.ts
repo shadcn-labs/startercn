@@ -6,7 +6,7 @@ export const revalidate = false;
 
 export const GET = async (
   _req: Request,
-  { params }: RouteContext<"/llms.mdx/docs/[[...slug]]">
+  { params }: { params: Promise<{ slug?: string[] }> }
 ) => {
   const { slug } = await params;
   const page = source.getPage(slug?.slice(0, -1));
@@ -16,7 +16,6 @@ export const GET = async (
 
   return new Response(await getLLMText(page), {
     headers: {
-      "Cache-Control": "public, max-age=3600",
       "Content-Type": "text/markdown; charset=utf-8",
     },
   });
