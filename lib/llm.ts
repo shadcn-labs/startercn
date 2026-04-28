@@ -4,8 +4,8 @@ import type { Node as PageTreeNode } from "fumadocs-core/page-tree";
 import { ROUTES } from "@/constants/routes";
 import { isComponentsFolder } from "@/lib/docs";
 import { getAllPagesFromFolder, getPagesFromFolder } from "@/lib/page-tree";
-
-import type { PageTreeFolder } from "./page-tree";
+import type { PageTreeFolder } from "@/lib/page-tree";
+import { absoluteUrl } from "@/lib/utils";
 
 interface DocsPageTree {
   children: PageTreeNode[];
@@ -43,7 +43,9 @@ const protectCodeFences = (content: string) => {
 };
 
 const docsMarkdownUrl = (url: string) =>
-  url.startsWith(ROUTES.DOCS) && !url.endsWith(".md") ? `${url}.md` : url;
+  absoluteUrl(
+    url.startsWith(ROUTES.DOCS) && !url.endsWith(".md") ? `${url}.md` : url
+  );
 
 const normalizeDocsMarkdownLinks = (content: string) =>
   content.includes("](/docs")
