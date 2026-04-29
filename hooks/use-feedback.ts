@@ -1,5 +1,6 @@
 "use client";
 
+import type { SoundDefinition } from "@web-kits/audio";
 import { defineSound } from "@web-kits/audio";
 import { useCallback } from "react";
 import { useWebHaptics } from "web-haptics/react";
@@ -55,23 +56,32 @@ const hapticPresetByType: Partial<Record<FeedbackType, string>> = {
 
 export interface UseFeedbackOptions {
   sound?: FeedbackType;
+  soundDef?: SoundDefinition;
   haptic?: boolean;
 }
 
-export const useFeedback = ({ sound, haptic = true }: UseFeedbackOptions) => {
+export const useFeedback = ({
+  sound,
+  soundDef,
+  haptic = true,
+}: UseFeedbackOptions) => {
   const { trigger: hapticTrigger } = useWebHaptics();
   const [soundEnabled] = useSoundEnabled();
   const [hapticsEnabled] = useHapticsEnabled();
 
   return useCallback(() => {
-    if (!sound) {
+    if (!sound && !soundDef) {
       return;
     }
     if (soundEnabled) {
-      defineSound(audio._patch.sounds[patchKeyByFeedback[sound]])();
+      if (sound) {
+        defineSound(audio._patch.sounds[patchKeyByFeedback[sound]])();
+      } else if (soundDef) {
+        defineSound(soundDef)();
+      }
     }
-    if (haptic && hapticsEnabled) {
+    if (sound && haptic && hapticsEnabled) {
       void hapticTrigger(hapticPresetByType[sound] ?? "light");
     }
-  }, [sound, haptic, hapticTrigger, soundEnabled, hapticsEnabled]);
+  }, [sound, soundDef, haptic, hapticTrigger, soundEnabled, hapticsEnabled]);
 };
