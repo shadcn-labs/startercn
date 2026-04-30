@@ -1,10 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { addTransitionType, startTransition } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
 import { useFeedback } from "@/hooks/use-feedback";
-import { runViewTransition } from "@/lib/view-transitions";
+import { trackEvent } from "@/lib/events";
 
 export const DocsKeyboardShortcuts = ({
   previous,
@@ -16,32 +17,46 @@ export const DocsKeyboardShortcuts = ({
   const router = useRouter();
   const playClick = useFeedback({ sound: "click" });
 
+  const navigate = (
+    href: string | null,
+    direction: "previous" | "next",
+    keys: string
+  ) => {
+    if (href) {
+      playClick();
+      trackEvent({
+        name: "keyboard_shortcut_navigate",
+        properties: { direction, keys, path: href },
+      });
+      startTransition(() => {
+        addTransitionType(direction === "next" ? "nav-forward" : "nav-back");
+        router.push(href);
+      });
+    }
+  };
+
   useHotkeys(
-    "left",
+    "ArrowRight",
     (event) => {
-      if (!previous || event.defaultPrevented) {
+      if (event.defaultPrevented) {
         return;
       }
 
-      playClick();
-      runViewTransition(() => router.push(previous), "nav-back");
+      navigate(next, "next", "ArrowRight");
     },
-    { preventDefault: true },
-    [previous, playClick, router]
+    { preventDefault: true }
   );
 
   useHotkeys(
-    "right",
+    "ArrowLeft",
     (event) => {
-      if (!next || event.defaultPrevented) {
+      if (event.defaultPrevented) {
         return;
       }
 
-      playClick();
-      runViewTransition(() => router.push(next), "nav-forward");
+      navigate(previous, "previous", "ArrowLeft");
     },
-    { preventDefault: true },
-    [next, playClick, router]
+    { preventDefault: true }
   );
 
   return null;
