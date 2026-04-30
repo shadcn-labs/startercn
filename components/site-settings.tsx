@@ -2,6 +2,7 @@
 
 import { Volume2Icon, VibrateIcon, SettingsIcon } from "lucide-react";
 import { useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +15,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Kbd } from "@/components/ui/kbd";
 import {
   Popover,
   PopoverContent,
@@ -21,14 +23,32 @@ import {
 } from "@/components/ui/popover";
 import { Toggle } from "@/components/ui/toggle";
 import { useHapticsEnabled } from "@/hooks/use-haptic-toggle";
+import { useIsMac } from "@/hooks/use-is-mac";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSoundEnabled } from "@/hooks/use-sound-toggle";
 
 export const SiteSettings = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
+  const isMac = useIsMac();
   const [soundEnabled, setSoundEnabled] = useSoundEnabled();
   const [hapticsEnabled, setHapticsEnabled] = useHapticsEnabled();
+
+  useHotkeys(
+    "meta+s, ctrl+s",
+    () => {
+      setSoundEnabled((prev) => !prev);
+    },
+    { preventDefault: true }
+  );
+
+  useHotkeys(
+    "meta+h, ctrl+h",
+    () => {
+      setHapticsEnabled((prev) => !prev);
+    },
+    { preventDefault: true }
+  );
 
   const trigger = (
     <Button
@@ -44,7 +64,10 @@ export const SiteSettings = () => {
   const content = (
     <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between gap-2 pl-1">
-        <span className="text-sm">Toggle Sound</span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm">Toggle Sound</span>
+          {!isMobile && <Kbd>{isMac ? "⌘" : "Ctrl"}+S</Kbd>}
+        </div>
         <Toggle
           pressed={soundEnabled}
           onPressedChange={setSoundEnabled}
@@ -56,7 +79,10 @@ export const SiteSettings = () => {
         </Toggle>
       </div>
       <div className="flex items-center justify-between gap-2 pl-1">
-        <span className="text-sm">Toggle Haptics</span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm">Toggle Haptics</span>
+          {!isMobile && <Kbd>{isMac ? "⌘" : "Ctrl"}+H</Kbd>}
+        </div>
         <Toggle
           pressed={hapticsEnabled}
           onPressedChange={setHapticsEnabled}

@@ -26,11 +26,7 @@ export const DocsKeyboardShortcuts = ({
       playClick();
       runViewTransition(() => router.push(previous), "nav-back");
     },
-    {
-      enableOnContentEditable: false,
-      enableOnFormTags: false,
-      preventDefault: true,
-    },
+    { preventDefault: true },
     [previous, playClick, router]
   );
 
@@ -44,11 +40,7 @@ export const DocsKeyboardShortcuts = ({
       playClick();
       runViewTransition(() => router.push(next), "nav-forward");
     },
-    {
-      enableOnContentEditable: false,
-      enableOnFormTags: false,
-      preventDefault: true,
-    },
+    { preventDefault: true },
     [next, playClick, router]
   );
 
